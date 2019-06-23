@@ -56,10 +56,14 @@ export default function sketch(p) {
         p.stroke(0)
         p.strokeWeight(5)
         p.beginShape()
-        for (let j = 0; j < resultPath.length; j += 30) {
+        p.vertex(resultPath[0].x, resultPath[0].y)
+        for (let j = 1; j < resultPath.length; j += 30) {
           p.vertex(resultPath[j].x, resultPath[j].y)
         }
-        p.vertex(pointTwo.x, pointTwo.y)
+        p.vertex(
+          resultPath[resultPath.length - 1].x,
+          resultPath[resultPath.length - 1].y
+        )
         p.endShape()
       }
       // p.noLoop()
@@ -89,7 +93,7 @@ export default function sketch(p) {
       resultWithDiagonals = astar.search(graph, start, end, {
         heuristic: astar.heuristics.diagonal
       })
-
+      // resultWithDiagonals.push({x:pointTwo.x, y:pointTwo.y})
       previousPaths.push(resultWithDiagonals)
     }
   }
