@@ -14,7 +14,7 @@ export default function sketch(p) {
   p.setup = async () => {
     p.pixelDensity(1)
     p.frameRate(12)
-    p.createCanvas(width, height, p.P2D)
+    p.createCanvas(width, height)
     p.image(mapImage, 0, 0)
 
     mapImage.loadPixels()
@@ -48,13 +48,12 @@ export default function sketch(p) {
   p.draw = () => {
     p.smooth()
     p.noFill()
-    p.strokeWeight(5)
     if (previousPaths.length) {
       for (let i = 0; i < previousPaths.length; i++) {
         let resultPath = previousPaths[i]
 
-        p.stroke(0)
-        p.strokeWeight(5)
+        p.stroke(38, 166, 154)
+        p.strokeWeight(4)
         p.beginShape()
         p.vertex(resultPath[0].x, resultPath[0].y)
         for (let j = 1; j < resultPath.length; j += 30) {
@@ -66,16 +65,14 @@ export default function sketch(p) {
         )
         p.endShape()
       }
-      // p.noLoop()
-      // p.line(pointOne.x, pointOne.y ,pointTwo.x, pointTwo.y )
     }
-    // p.noStroke()
-    p.fill(0)
+    p.noStroke()
+    p.fill(38, 166, 154)
     if (pointOne.x) {
-      p.ellipse(pointOne.x, pointOne.y, 10, 10)
+      p.ellipse(pointOne.x, pointOne.y, 15, 15)
     }
     if (pointTwo.x) {
-      p.ellipse(pointTwo.x, pointTwo.y, 10, 10)
+      p.ellipse(pointTwo.x, pointTwo.y, 15, 15)
     }
   }
 

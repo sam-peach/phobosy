@@ -15,15 +15,23 @@ label {
 #navBar {
   display: flex;
   align-items: center;
-  background-color: #ea6c1e;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgb(255, 109, 0, 1);
   color: white;
   padding: 0% 1%;
   height: 60px;
-  border-bottom: 5px solid black;
+  /* opacity: 0.4; */
+  width: 100%;
+  z-index: 999;
 }
 
-.canvas {
-  overflow: hidden;
+.myCanvas {
+  /* overflow: hidden; */
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 form div {
