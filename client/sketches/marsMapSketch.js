@@ -1,4 +1,3 @@
-import {easyAStar} from 'easy-astar'
 import {Graph, astar} from 'javascript-astar'
 
 export default function sketch(p) {
@@ -6,8 +5,8 @@ export default function sketch(p) {
   let map = []
   let graph
   let resultWithDiagonals
-  let width = p.windowWidth
-  let height = p.windowHeight
+  let width = p.displayWidth
+  let height = p.displayHeight
   p.preload = async () => {
     mapImage = await p.loadImage('/api/images')
   }
@@ -17,6 +16,7 @@ export default function sketch(p) {
     p.frameRate(12)
     p.createCanvas(width, height, p.P2D)
     p.image(mapImage, 0, 0)
+
     mapImage.loadPixels()
 
     for (let x = 0; x < width; x++) {
@@ -24,19 +24,19 @@ export default function sketch(p) {
       for (let y = 0; y < height; y++) {
         const index = (x + y * width) * 4
         let avg = p.map(
-          Math.floor(
-            (mapImage.pixels[index] +
-              mapImage.pixels[index + 1] +
-              mapImage.pixels[index + 3]) /
-              3
-          ),
+          mapImage.pixels[index] * 0.2126 +
+            mapImage.pixels[index + 1] * 0.7152 +
+            mapImage.pixels[index + 2] * 0.0722,
           0,
           255,
-          255,
-          0
+          0,
+          180
         )
+        if (avg < 30 || avg > 150) avg = 0
+        avg = Math.sin(avg)
+        avg = p.map(avg, 0, 1, 0, 10000)
 
-        map[x].push(avg ** 2)
+        map[x].push(Math.floor(avg ** 2))
       }
     }
 
@@ -46,13 +46,13 @@ export default function sketch(p) {
   const pointTwo = {x: null, y: null}
   const previousPaths = []
   p.draw = () => {
+    p.smooth()
     p.noFill()
     p.strokeWeight(5)
     if (previousPaths.length) {
       for (let i = 0; i < previousPaths.length; i++) {
         let resultPath = previousPaths[i]
 
-        p.noFill()
         p.stroke(0)
         p.strokeWeight(5)
         p.beginShape()
@@ -89,11 +89,12 @@ export default function sketch(p) {
 
       const end = graph.grid[pointTwo.x][pointTwo.y]
       const start = graph.grid[pointOne.x][pointOne.y]
-
+      console.log('>>> ', start, end)
       resultWithDiagonals = astar.search(graph, start, end, {
-        heuristic: astar.heuristics.diagonal
+        heuristic: astar.heuristics.diagonal,
+        diagonal: true,
+        closest: true
       })
-      // resultWithDiagonals.push({x:pointTwo.x, y:pointTwo.y})
       previousPaths.push(resultWithDiagonals)
     }
   }
