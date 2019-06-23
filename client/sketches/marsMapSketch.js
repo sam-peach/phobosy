@@ -6,8 +6,8 @@ export default function sketch(p) {
   let map = []
   let graph
   let resultWithDiagonals
-  let width = 600
-  let height = 400
+  let width = p.windowWidth
+  let height = p.windowHeight
   p.preload = async () => {
     mapImage = await p.loadImage('/api/images')
   }
@@ -44,29 +44,28 @@ export default function sketch(p) {
   }
   const pointOne = {x: null, y: null}
   const pointTwo = {x: null, y: null}
-
+  const previousPaths = []
   p.draw = () => {
-    p.stroke(0)
     p.noFill()
     p.strokeWeight(5)
-    if (pointOne.x && pointOne.y && pointTwo.x && pointTwo.y) {
-      const end = graph.grid[pointTwo.x][pointTwo.y]
-      const start = graph.grid[pointOne.x][pointOne.y]
+    if (previousPaths.length) {
+      for (let i = 0; i < previousPaths.length; i++) {
+        let resultPath = previousPaths[i]
 
-      resultWithDiagonals = astar.search(graph, start, end, {
-        heuristic: astar.heuristics.diagonal
-      })
-      p.noFill()
-      p.beginShape()
-      for (let i = 0; i < resultWithDiagonals.length; i += 30) {
-        p.vertex(resultWithDiagonals[i].x, resultWithDiagonals[i].y)
+        p.noFill()
+        p.stroke(0)
+        p.strokeWeight(5)
+        p.beginShape()
+        for (let j = 0; j < resultPath.length; j += 30) {
+          p.vertex(resultPath[j].x, resultPath[j].y)
+        }
+        p.vertex(pointTwo.x, pointTwo.y)
+        p.endShape()
       }
-      p.vertex(pointTwo.x, pointTwo.y)
-      p.endShape()
       // p.noLoop()
       // p.line(pointOne.x, pointOne.y ,pointTwo.x, pointTwo.y )
     }
-    p.noStroke()
+    // p.noStroke()
     p.fill(0)
     if (pointOne.x) {
       p.ellipse(pointOne.x, pointOne.y, 10, 10)
@@ -83,6 +82,15 @@ export default function sketch(p) {
     } else {
       pointTwo.x = Math.ceil(p.mouseX)
       pointTwo.y = Math.ceil(p.mouseY)
+
+      const end = graph.grid[pointTwo.x][pointTwo.y]
+      const start = graph.grid[pointOne.x][pointOne.y]
+
+      resultWithDiagonals = astar.search(graph, start, end, {
+        heuristic: astar.heuristics.diagonal
+      })
+
+      previousPaths.push(resultWithDiagonals)
     }
   }
 }

@@ -1,8 +1,8 @@
 const router = require('express').Router()
+const path = require('path')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
-  res.sendFile(
-    '/Users/alysialouisepeach/Documents/Fullstack/marsMap/server/api/assets/marsTile.png'
-  )
+  console.log('>>> ', __dirname)
+  res.sendFile(__dirname + '/assets/marsTile.png')
 })
