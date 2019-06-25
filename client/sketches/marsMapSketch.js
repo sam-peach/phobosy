@@ -1,4 +1,4 @@
-import {Graph, astar} from 'javascript-astar'
+import {astar, Graph} from 'javascript-astar'
 
 export default function sketch(p) {
   let mapImage
@@ -48,24 +48,23 @@ export default function sketch(p) {
   p.draw = () => {
     p.smooth()
     p.noFill()
-    if (previousPaths.length) {
-      for (let i = 0; i < previousPaths.length; i++) {
-        let resultPath = previousPaths[i]
+    for (let i = 0; i < previousPaths.length; i++) {
+      let resultPath = previousPaths[i]
 
-        p.stroke(38, 166, 154)
-        p.strokeWeight(4)
-        p.beginShape()
-        p.vertex(resultPath[0].x, resultPath[0].y)
-        for (let j = 1; j < resultPath.length; j += 30) {
-          p.vertex(resultPath[j].x, resultPath[j].y)
-        }
-        p.vertex(
-          resultPath[resultPath.length - 1].x,
-          resultPath[resultPath.length - 1].y
-        )
-        p.endShape()
+      p.stroke(38, 166, 154)
+      p.strokeWeight(4)
+      p.beginShape()
+      p.vertex(resultPath[0].x, resultPath[0].y)
+      for (let j = 1; j < resultPath.length; j += 30) {
+        p.vertex(resultPath[j].x, resultPath[j].y)
       }
+      p.vertex(
+        resultPath[resultPath.length - 1].x,
+        resultPath[resultPath.length - 1].y
+      )
+      p.endShape()
     }
+
     p.noStroke()
     p.fill(38, 166, 154)
     if (pointOne.x) {
