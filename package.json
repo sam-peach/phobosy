@@ -48,6 +48,7 @@
     "easy-astar": "^1.0.5",
     "express": "^4.16.4",
     "express-session": "^1.15.1",
+    "heap": "^0.2.6",
     "history": "^4.9.0",
     "javascript-astar": "^0.4.1",
     "morgan": "^1.9.1",
