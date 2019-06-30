@@ -6,8 +6,8 @@ export default function sketch(p) {
   let map = []
   let graph
   let resultWithDiagonals
-  let width = 900
-  let height = 900
+  let width = p.displayWidth
+  let height = p.displayHeight
   p.preload = async () => {
     mapImage = await p.loadImage('/api/images')
     imageToDisplay = await p.loadImage('/api/images/col')
