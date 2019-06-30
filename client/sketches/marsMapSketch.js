@@ -6,8 +6,8 @@ export default function sketch(p) {
   let map = []
   let graph
   let resultWithDiagonals
-  let width = p.displayWidth
-  let height = p.displayHeight
+  let width = 900
+  let height = 900
   p.preload = async () => {
     mapImage = await p.loadImage('/api/images')
     imageToDisplay = await p.loadImage('/api/images/col')
@@ -25,30 +25,10 @@ export default function sketch(p) {
       map.push([])
       for (let y = 0; y < height; y++) {
         const index = (x + y * width) * 4
-        // let avg = p.map(
-        //   mapImage.pixels[index] * 0.2126 +
-        //     mapImage.pixels[index + 1] * 0.7152 +
-        //     mapImage.pixels[index + 2] * 0.0722,
-        //   0,
-        //   255,
-        //   0,
-        //   180
-        // )
-        // if (avg < 30 || avg > 150) avg = 0
-        // avg = Math.sin(avg)
-        // avg = p.map(avg, 0, 1, 0, 10000)
-
-        // let avg =  p.map(mapImage.pixels[index], 0 , 255, 255, 0)
-        let score = mapImage.pixels[index + 1]
-        // console.log(">>> ", score)
-
-        // let avg = p.map(score, 0, 255, 255, 0)
-
-        score = score < 250 ? 0 : score
-        map[x].push(Math.floor(score))
+        map[x].push(Math.floor(mapImage.pixels[index + 1]))
       }
     }
-    graph = new Graph(map, {diagonal: true})
+    graph = new Graph(map, {diagonal: true, greyscaleWeights: true})
   }
   const pointOne = {x: null, y: null}
   const pointTwo = {x: null, y: null}
