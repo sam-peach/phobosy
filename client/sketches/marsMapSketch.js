@@ -6,8 +6,8 @@ export default function sketch(p) {
   let map = []
   let graph
   let resultWithDiagonals
-  let width = 900
-  let height = 900
+  let width = p.displayWidth
+  let height = p.displayHeight
   p.preload = async () => {
     mapImage = await p.loadImage('/api/images')
     imageToDisplay = await p.loadImage('/api/images/col')
@@ -42,10 +42,10 @@ export default function sketch(p) {
         let score = mapImage.pixels[index + 1]
         // console.log(">>> ", score)
 
-        let avg = p.map(score, 0, 255, 255, 0)
+        // let avg = p.map(score, 0, 255, 255, 0)
 
-        avg = avg < 250 ? 0 : avg
-        map[x].push(Math.floor(avg))
+        score = score < 250 ? 0 : score
+        map[x].push(Math.floor(score))
       }
     }
     graph = new Graph(map, {diagonal: true})
@@ -72,6 +72,12 @@ export default function sketch(p) {
           resultPath[resultPath.length - 1].y
         )
         p.endShape()
+        p.ellipse(
+          resultPath[resultPath.length - 1].x,
+          resultPath[resultPath.length - 1].y,
+          15,
+          15
+        )
       }
     }
     p.noStroke()
@@ -79,9 +85,9 @@ export default function sketch(p) {
     if (pointOne.x) {
       p.ellipse(pointOne.x, pointOne.y, 15, 15)
     }
-    if (pointTwo.x) {
-      p.ellipse(pointTwo.x, pointTwo.y, 15, 15)
-    }
+    // if (pointTwo.x) {
+    //   p.ellipse(pointTwo.x, pointTwo.y, 15, 15)
+    // }
   }
 
   p.mousePressed = () => {
