@@ -1,7 +1,7 @@
 {
-  "name": "boilermaker",
+  "name": "phobosy",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "Implementing the A* pathfinding algorithm from satellite images of Mars.",
   "engines": {
     "node": ">= 7.0.0"
   },
