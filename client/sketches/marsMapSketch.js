@@ -40,11 +40,11 @@ export default function sketch(p) {
       for (let i = 0; i < previousPaths.length; i++) {
         let resultPath = previousPaths[i]
 
-        p.stroke(38, 166, 154)
-        p.strokeWeight(4)
+        p.stroke(13, 71, 161)
+        p.strokeWeight(3)
         p.beginShape()
         p.vertex(resultPath[0].x, resultPath[0].y)
-        for (let j = 1; j < resultPath.length; j += 30) {
+        for (let j = 1; j < resultPath.length; j += 40) {
           p.vertex(resultPath[j].x, resultPath[j].y)
         }
         p.vertex(
@@ -52,22 +52,28 @@ export default function sketch(p) {
           resultPath[resultPath.length - 1].y
         )
         p.endShape()
+
+        p.strokeWeight(2)
         p.ellipse(
           resultPath[resultPath.length - 1].x,
           resultPath[resultPath.length - 1].y,
           15,
           15
         )
+        p.strokeWeight(1)
+        p.ellipse(
+          resultPath[resultPath.length - 1].x,
+          resultPath[resultPath.length - 1].y,
+          25,
+          25
+        )
       }
     }
     p.noStroke()
-    p.fill(38, 166, 154)
+    p.fill(13, 71, 161)
     if (pointOne.x) {
       p.ellipse(pointOne.x, pointOne.y, 15, 15)
     }
-    // if (pointTwo.x) {
-    //   p.ellipse(pointTwo.x, pointTwo.y, 15, 15)
-    // }
   }
 
   p.mousePressed = () => {
