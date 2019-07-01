@@ -14,7 +14,7 @@ export default function sketch(p) {
   }
 
   p.setup = async () => {
-    // p.pixelDensity(1)
+    p.pixelDensity(1)
     p.frameRate(12)
     p.createCanvas(width, height)
     p.image(imageToDisplay, 0, 0)
