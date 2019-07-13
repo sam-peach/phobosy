@@ -1,31 +1,33 @@
 import {Graph, astar} from 'javascript-astar'
 
 export default function sketch(p) {
-  let mapImage
   let imageToDisplay
   let map = []
   let graph
   let resultWithDiagonals
-  let width = p.displayWidth
-  let height = p.displayHeight
+
   p.preload = async () => {
-    mapImage = await p.loadImage('/api/images')
     imageToDisplay = await p.loadImage('/api/images/col')
   }
 
-  p.setup = async () => {
+  p.setup = () => {
     p.pixelDensity(1)
-    p.frameRate(12)
+    let width = p.windowWidth < 1920 ? 1920 : p.windowWidth
+    let height = p.windowHeight < 1080 ? 1080 : p.windowHeight
     p.createCanvas(width, height)
+
+    p.frameRate(12)
+
     p.image(imageToDisplay, 0, 0)
 
-    mapImage.loadPixels()
-
+    imageToDisplay.loadPixels()
+    p.loadPixels()
+    const d = p.pixelDensity()
     for (let x = 0; x < width; x++) {
       map.push([])
       for (let y = 0; y < height; y++) {
-        const index = (x + y * width) * 4
-        map[x].push(Math.floor(mapImage.pixels[index + 1]))
+        const index = (Math.round(x * d) + Math.round(y * d) * width) * 4
+        map[x].push(Math.floor(imageToDisplay.pixels[index]))
       }
     }
     graph = new Graph(map, {diagonal: true, greyscaleWeights: true})
@@ -44,7 +46,7 @@ export default function sketch(p) {
         p.strokeWeight(3)
         p.beginShape()
         p.vertex(resultPath[0].x, resultPath[0].y)
-        for (let j = 1; j < resultPath.length; j += 40) {
+        for (let j = 1; j < resultPath.length; j += 10) {
           p.vertex(resultPath[j].x, resultPath[j].y)
         }
         p.vertex(
@@ -86,7 +88,6 @@ export default function sketch(p) {
 
       const end = graph.grid[pointTwo.x][pointTwo.y]
       const start = graph.grid[pointOne.x][pointOne.y]
-      console.log('>>> ', start, end)
       resultWithDiagonals = astar.search(graph, start, end, {
         heuristic: astar.heuristics.diagonal,
         diagonal: true,
