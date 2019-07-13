@@ -1,3 +1,7 @@
+html {
+  font-family: 'Roboto Slab', serif;
+}
+
 body {
   font-family: 'Roboto Slab', serif;
   margin: 0px;
@@ -18,7 +22,8 @@ label {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgb(255, 158, 64);
+  background-color: rgba(255, 158, 64, 0.7);
+  /* background-color: rgba(255, 158, 64, 0.6); */
   color: white;
   padding: 0% 1%;
   height: 60px;
@@ -37,4 +42,11 @@ label {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+#p5_loading {
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
