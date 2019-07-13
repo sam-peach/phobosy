@@ -5,6 +5,8 @@ export default function sketch(p) {
   let map = []
   let graph
   let resultWithDiagonals
+  let width = p.windowWidth < 1920 ? 1920 : p.windowWidth
+  let height = p.windowHeight < 1080 ? 1080 : p.windowHeight
 
   p.preload = async () => {
     imageToDisplay = await p.loadImage('/api/images/col')
@@ -12,8 +14,7 @@ export default function sketch(p) {
 
   p.setup = () => {
     p.pixelDensity(1)
-    let width = p.windowWidth < 1920 ? 1920 : p.windowWidth
-    let height = p.windowHeight < 1080 ? 1080 : p.windowHeight
+
     p.createCanvas(width, height)
 
     p.frameRate(12)
@@ -34,7 +35,7 @@ export default function sketch(p) {
   }
   const pointOne = {x: null, y: null}
   const pointTwo = {x: null, y: null}
-  const previousPaths = []
+  let previousPaths = []
   p.draw = () => {
     p.smooth()
     p.noFill()
@@ -42,14 +43,14 @@ export default function sketch(p) {
       for (let i = 0; i < previousPaths.length; i++) {
         let resultPath = previousPaths[i]
 
-        p.stroke(13, 71, 161)
+        p.stroke(8, 117, 150)
         p.strokeWeight(3)
         p.beginShape()
-        p.vertex(resultPath[0].x, resultPath[0].y)
+        p.curveVertex(resultPath[0].x, resultPath[0].y)
         for (let j = 1; j < resultPath.length; j += 10) {
-          p.vertex(resultPath[j].x, resultPath[j].y)
+          p.curveVertex(resultPath[j].x, resultPath[j].y)
         }
-        p.vertex(
+        p.curveVertex(
           resultPath[resultPath.length - 1].x,
           resultPath[resultPath.length - 1].y
         )
@@ -69,20 +70,21 @@ export default function sketch(p) {
           25,
           25
         )
+        previousPaths = []
       }
     }
     p.noStroke()
-    p.fill(13, 71, 161)
-    if (pointOne.x) {
+    p.fill(8, 117, 150)
+    if (pointOne.x && !pointTwo.x) {
       p.ellipse(pointOne.x, pointOne.y, 15, 15)
     }
   }
 
   p.mousePressed = () => {
-    if (!pointOne.x && !pointOne.y) {
+    if (!pointOne.x && !pointOne.y && p.mouseY > 0) {
       pointOne.x = Math.ceil(p.mouseX)
       pointOne.y = Math.ceil(p.mouseY)
-    } else {
+    } else if (pointOne.x && pointOne.y && p.mouseY > 0) {
       pointTwo.x = Math.ceil(p.mouseX)
       pointTwo.y = Math.ceil(p.mouseY)
 
@@ -94,6 +96,17 @@ export default function sketch(p) {
         closest: true
       })
       previousPaths.push(resultWithDiagonals)
+    }
+  }
+
+  p.myCustomRedrawAccordingToNewPropsHandler = function(newProps) {
+    pointOne.x = null
+    pointOne.y = null
+    pointTwo.x = null
+    pointTwo.y = null
+    previousPaths = []
+    if (graph) {
+      p.image(imageToDisplay, 0, 0)
     }
   }
 }
