@@ -24,7 +24,7 @@ Deployed - v1.0.1
 
 # Code Example
 
-The heart of Phobosy is how it calculates a traversable graph from an image. The way this happens is that the image is converted to greyscale, then the heuristic function for A* is then updated to read the *absolute difference in contrast\* between two points in the graph.
+The heart of Phobosy is how it calculates a traversable graph from an image. The way this happens is that the image is converted to greyscale, then the heuristic function for A\* is then updated to read the _absolute difference in contrast_ between two points in the graph.
 
 ```javascript
 if (this.greyscaleWeights) {
