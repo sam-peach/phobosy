@@ -12,7 +12,7 @@ const MapP5 = props => {
         id="myCanvas"
       />
       <div id="p5_loading" className="loadingclass">
-        <img src="https://www.dokkan.ly/Themes/Dokkan/Content/images/dokkanloader.gif" />
+        <img src="https://media.giphy.com/media/sSgvbe1m3n93G/giphy.gif" />
       </div>
     </div>
   )
