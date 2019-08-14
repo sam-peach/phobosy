@@ -3,8 +3,8 @@
 An implementation of the A\* search algorithm taking data directly from NASA's satellite images of Mars. The generated path has been designed to return to favor the ‘smoothest’ ride possible, meaning it punishes rapid changes in altitude.
 
 ### Read my articles breaking down how Phobosy was built:
-- [Part 1](https://medium.com/@sampeach/how-to-use-pathfinding-algorithms-with-satellite-images-part-1-4faf429e091e?source=friends_link&sk=b24934f80bd578c2049f976d9c374ffb){:target="_blank"}
-- [Part 2](https://medium.com/@sampeach/how-to-use-pathfinding-algorithms-with-satellite-images-part-2-77562d4a94f3?source=friends_link&sk=9b625cb53ef08450afb18f04cae02b12){:target="_blank"}
+- [Part 1](https://medium.com/@sampeach/how-to-use-pathfinding-algorithms-with-satellite-images-part-1-4faf429e091e?source=friends_link&sk=b24934f80bd578c2049f976d9c374ffb){:target="_blank" rel="noopener"}
+- [Part 2](https://medium.com/@sampeach/how-to-use-pathfinding-algorithms-with-satellite-images-part-2-77562d4a94f3?source=friends_link&sk=9b625cb53ef08450afb18f04cae02b12){:target="_blank" rel="noopener"}
 
 # Motivation
 
