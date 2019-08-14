@@ -27,7 +27,7 @@ Deployed - v1.0.1
 The heart of Phobosy is how it calculates a traversable graph from an image. The way this happens is that the image is converted to greyscale, then the heuristic function for A\* is then updated to read the _absolute difference in contrast_ between two points in the graph.
 
 ```javascript
-if (this.greyscaleWeights) {
+if (this.grayscaleWeights) {
   if (fromNeighbor && fromNeighbor.x != this.x && fromNeighbor.y != this.y) {
     return Math.abs(this.weight - fromNeighbor.weight) * 1.41421
   } else {
