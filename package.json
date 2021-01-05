@@ -42,7 +42,7 @@
   "author": "Sam Peach",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "compression": "^1.7.3",
     "connect-session-sequelize": "^6.0.0",
     "easy-astar": "^1.0.5",
